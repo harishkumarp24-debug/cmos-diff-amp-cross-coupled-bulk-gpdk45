@@ -1,0 +1,71 @@
+// Generated for: spectre
+// Generated on: Oct 13 13:48:47 2026
+// Design library name: DIFF_AMP
+// Design cell name: DIFF_AMP@
+// Design view name: schematic
+simulator lang=spectre
+global 0
+include "/home/install/FOUNDRY/analog/180nm/models/spectre/gpdk.scs" section=stat
+include "/home/install/FOUNDRY/analog/45nm/gpdk045/../models/spectre/gpdk045.scs" section=mc
+
+// Library name: DIFF_AMP
+// Cell name: DIFF_AMP@
+// View name: schematic
+NM10 (net5 net6 net4 0) g45n1svt w=(150n) l=45n nf=1 as=21f ad=21f ps=580n \
+        pd=580n nrd=933.333m nrs=933.333m sa=140n sb=140n sd=160n \
+        sca=199.54649 scb=0.11459 scc=0.02478 m=(1)
+NM9 (net11 net3 0 0) g45n1svt w=(180n) l=135n nf=1 as=25.2f ad=25.2f \
+        ps=640n pd=640n nrd=777.778m nrs=777.778m sa=140n sb=140n sd=160n \
+        sca=168.73964 scb=0.10083 scc=0.02012 m=(1)
+NM8 (0 net3 net2 0) g45n1svt w=(300n) l=45n nf=1 as=42f ad=42f ps=880n \
+        pd=880n nrd=466.667m nrs=466.667m sa=140n sb=140n sd=160n \
+        sca=133.40892 scb=0.09829 scc=0.01624 m=(1)
+NM7 (net4 net10 0 0) g45n1svt w=(200n) l=45n nf=1 as=28f ad=28f ps=680n \
+        pd=680n nrd=700m nrs=700m sa=140n sb=140n sd=160n sca=169.02145 \
+        scb=0.10920 scc=0.02100 m=(1)
+NM6 (0 net10 net10 0) g45n1svt w=(180n) l=45n nf=1 as=25.2f ad=25.2f \
+        ps=640n pd=640n nrd=777.778m nrs=777.778m sa=140n sb=140n sd=160n \
+        sca=179.70522 scb=0.11143 scc=0.02237 m=(1)
+NM0 (vout1 net8 net2 0) g45n1svt w=(145n) l=45n nf=1 as=20.3f ad=20.3f \
+        ps=570n pd=570n nrd=965.517m nrs=965.517m sa=140n sb=140n sd=160n \
+        sca=203.41795 scb=0.11509 scc=0.02523 m=(1)
+NM1 (net2 net7 vout2 0) g45n1svt w=(145n) l=45n nf=1 as=20.3f ad=20.3f \
+        ps=570n pd=570n nrd=965.517m nrs=965.517m sa=140n sb=140n sd=160n \
+        sca=203.41795 scb=0.11509 scc=0.02523 m=(1)
+PM2 (net9 net1 net5 net6) g45p1svt w=(4.6u) l=45n nf=1 as=644f ad=644f \
+        ps=9.48u pd=9.48u nrd=30.4348m nrs=30.4348m sa=140n sb=140n \
+        sd=160n sca=47.96940 scb=0.05195 scc=0.00601 m=(1)
+PM0 (vout1 net1 net9 vout2) g45p1svt w=(300n) l=45n nf=1 as=42f ad=42f \
+        ps=880n pd=880n nrd=466.667m nrs=466.667m sa=140n sb=140n sd=160n \
+        sca=133.40892 scb=0.09829 scc=0.01624 m=(1)
+PM1 (net9 net1 vout2 vout1) g45p1svt w=(300n) l=45n nf=1 as=42f ad=42f \
+        ps=880n pd=880n nrd=466.667m nrs=466.667m sa=140n sb=140n sd=160n \
+        sca=133.40892 scb=0.09829 scc=0.01624 m=(1)
+V1 (net6 0) vsource dc=300.0m type=dc
+V2 (net9 0) vsource dc=1 type=dc
+I15 (net9 net11) isource dc=54n type=dc
+I16 (net9 net10) isource dc=95n type=dc
+V3 (net7 0) vsource dc=500.0m mag=500.0m phase=180 type=pulse val0=510.0m \
+        val1=490.0m period=10u rise=1n fall=1n width=5u
+V0 (net8 0) vsource dc=500.0m mag=500.0m phase=0 type=pulse val0=490.0m \
+        val1=510.0m period=10u rise=1n fall=1n width=5u
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf
+tran tran stop=50u errpreset=moderate write="spectre.ic" \
+    writefinal="spectre.fc" annotate=status maxiters=5
+finalTimeOP info what=oppoint where=rawfile
+dcOp dc write="spectre.dc" maxiters=150 maxsteps=10000 annotate=status
+dcOpInfo info what=oppoint where=rawfile
+dc dc dev=V1 param=dc start=0 stop=1 oppoint=rawfile maxiters=150 \
+    maxsteps=10000 annotate=status
+ac ac start=1 stop=100M dec=100 annotate=status
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save vout2 vout1 net8 net7
+saveOptions options save=all pwr=all
